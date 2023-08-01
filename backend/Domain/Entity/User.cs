@@ -7,5 +7,7 @@ namespace Domain.Entity
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public int Role { get; set; }
+
+    public UserContactDetails UserContactDetails { get; set; }
   }
 }
