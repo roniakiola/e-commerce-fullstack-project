@@ -8,7 +8,6 @@ namespace Domain.Entity
     public string PostalCode { get; set; }
     public string Country { get; set; }
     public string PhoneNumber { get; set; }
-    public string Email { get; set; }
 
     public User User { get; set; }
   }

@@ -50,6 +50,10 @@ namespace Infrastructure.Database
         .HasForeignKey<Cart>(c => c.UserId)
         .OnDelete(DeleteBehavior.Cascade);
 
+      modelBuilder.Entity<User>()
+        .Property(u => u.Role)
+        .HasConversion<string>();
+
       modelBuilder.Entity<Product>()
         .HasMany(p => p.CartItems)
         .WithOne(ci => ci.Product)
@@ -79,6 +83,10 @@ namespace Infrastructure.Database
         .WithOne(oi => oi.Order)
         .HasForeignKey(oi => oi.OrderId)
         .OnDelete(DeleteBehavior.Cascade);
+
+      modelBuilder.Entity<Order>()
+        .Property(o => o.Status)
+        .HasConversion<string>();
     }
   }
 }
