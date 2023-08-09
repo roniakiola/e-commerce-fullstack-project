@@ -9,7 +9,5 @@ namespace Domain.Entity
     public User User { get; set; }
 
     public List<CartItem> CartItems { get; set; }
-
-
   }
 }

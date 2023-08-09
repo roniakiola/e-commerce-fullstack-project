@@ -9,5 +9,9 @@ namespace Domain.Entity
     public int Role { get; set; }
 
     public UserContactDetails UserContactDetails { get; set; }
+    public Cart Cart { get; set; }
+
+    public List<Order> Orders { get; set; }
+
   }
 }
