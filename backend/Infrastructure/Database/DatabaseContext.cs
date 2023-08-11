@@ -54,6 +54,10 @@ namespace Infrastructure.Database
         .Property(u => u.Role)
         .HasConversion<string>();
 
+      modelBuilder.Entity<User>()
+        .HasIndex(u => u.Email)
+        .IsUnique();
+
       modelBuilder.Entity<Product>()
         .HasMany(p => p.CartItems)
         .WithOne(ci => ci.Product)
