@@ -1,37 +1,40 @@
+using AutoMapper;
 using Domain.Abstraction.Repository;
-using Domain.Abstraction.Service;
+using Application.Abstraction.Service;
 
 namespace Application.Service
 {
-  public class BaseService<T> : IBaseService<T> where T : class
+  public class BaseService<T, TReadDto, TCreateDto, TUpdateDto> : IBaseService<T, TCreateDto, TReadDto, TUpdateDto> where T : class
   {
     protected readonly IBaseRepository<T> _repository;
+    protected readonly IMapper _mapper;
 
-    public BaseService(IBaseRepository<T> repository)
+    public BaseService(IBaseRepository<T> repository, IMapper mapper)
     {
       _repository = repository;
+      _mapper = mapper;
     }
 
-    public async Task<T> GetByIdAsync(Guid id)
+    public async Task<TReadDto> GetByIdAsync(Guid id)
     {
-      return await _repository.GetByIdAsync(id);
+      return _mapper.Map<TReadDto>(await _repository.GetByIdAsync(id));
     }
 
-    public async Task<List<T>> GetAllAsync()
+    public async Task<List<TReadDto>> GetAllAsync()
     {
-      return await _repository.GetAllAsync();
+      return _mapper.Map<List<TReadDto>>(await _repository.GetAllAsync());
     }
 
-    public async Task<T> CreateAsync(T entity)
+    public async Task<TReadDto> CreateAsync(TCreateDto entityDto)
     {
+      var entity = _mapper.Map<T>(entityDto);
       await _repository.CreateAsync(entity);
-      return entity;
+      return _mapper.Map<TReadDto>(entity);
     }
 
-    public async Task<T> UpdateAsync(Guid id, T entity)
+    public async Task<TReadDto> UpdateAsync(Guid id, TUpdateDto entityDto)
     {
-      await _repository.UpdateAsync(entity);
-      return entity;
+      throw new NotImplementedException();
     }
 
     public async Task DeleteAsync(Guid id)

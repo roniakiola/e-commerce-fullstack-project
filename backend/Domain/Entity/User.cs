@@ -15,8 +15,8 @@ namespace Domain.Entity
 
     public enum UserRole
     {
-      Admin,
-      Customer
+      Customer,
+      Admin
     }
 
   }

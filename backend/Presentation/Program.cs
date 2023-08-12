@@ -1,9 +1,17 @@
+using Application.Abstraction.Service;
+using Application.Service;
+using Domain.Abstraction.Repository;
 using Infrastructure.Database;
+using Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //DBContext
 builder.Services.AddDbContext<DatabaseContext>();
+
+//Services
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 // Add services to the container.
 builder.Services.AddControllers();
