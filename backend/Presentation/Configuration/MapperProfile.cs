@@ -10,7 +10,7 @@ namespace Presentation.Configuration
     {
       CreateMap<User, UserReadDto>();
       CreateMap<UserCreateDto, User>();
-      CreateMap<UserUpdateDto, User>();
+      CreateMap<UserUpdateDto, User>().ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
     }
   }
 }

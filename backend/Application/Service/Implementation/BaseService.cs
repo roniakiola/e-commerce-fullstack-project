@@ -38,22 +38,7 @@ namespace Application.Service.Implementation
       {
         throw new Exception("Entity not found");
       }
-
-      var entityType = entity.GetType();
-      var dtoType = entityDto.GetType();
-
-      foreach (var dtoProperty in dtoType.GetProperties())
-      {
-        var entityProperty = entityType.GetProperty(dtoProperty.Name);
-        if (entityProperty != null)
-        {
-          var dtoValue = dtoProperty.GetValue(entityDto);
-          if (dtoValue != null)
-          {
-            entityProperty.SetValue(entity, dtoValue);
-          }
-        }
-      }
+      _mapper.Map(entityDto, entity);
       return _mapper.Map<TReadDto>(await _repository.UpdateAsync(entity));
     }
 
