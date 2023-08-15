@@ -6,6 +6,6 @@ namespace Application.Service.Abstraction
     Task<TReadDto> GetByIdAsync(Guid id);
     Task<TReadDto> CreateAsync(TCreateDto entityDto);
     Task<TReadDto> UpdateAsync(Guid id, TUpdateDto entityDto);
-    Task DeleteAsync(Guid id);
+    Task<bool> DeleteAsync(Guid id);
   }
 }

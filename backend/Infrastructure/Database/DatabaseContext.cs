@@ -1,7 +1,5 @@
-using System.Security.Cryptography;
 using Domain.Entity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 
@@ -33,7 +31,7 @@ namespace Infrastructure.Database
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
       var builder = new NpgsqlDataSourceBuilder(_configuration.GetConnectionString("ECommerceDB"));
-      optionsBuilder.UseNpgsql(builder.Build());
+      optionsBuilder.UseNpgsql(builder.Build()).UseSnakeCaseNamingConvention();
       optionsBuilder.AddInterceptors(new TimeStampInterceptor());
     }
 

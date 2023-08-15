@@ -4,8 +4,8 @@ namespace Domain.Abstraction.Repository
   {
     Task<T> GetByIdAsync(Guid id);
     Task<List<T>> GetAllAsync();
-    Task CreateAsync(T entity);
-    Task UpdateAsync(T entity);
-    Task DeleteAsync(T entity);
+    Task<T> CreateAsync(T entity);
+    Task<T> UpdateAsync(T entity);
+    Task<bool> DeleteAsync(T entity);
   }
 }
