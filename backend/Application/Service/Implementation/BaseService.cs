@@ -1,8 +1,8 @@
 using AutoMapper;
 using Domain.Abstraction.Repository;
-using Application.Abstraction.Service;
+using Application.Service.Abstraction;
 
-namespace Application.Service
+namespace Application.Service.Implementation
 {
   public class BaseService<T, TReadDto, TCreateDto, TUpdateDto> : IBaseService<T, TCreateDto, TReadDto, TUpdateDto> where T : class
   {

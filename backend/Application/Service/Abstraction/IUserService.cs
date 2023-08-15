@@ -1,7 +1,7 @@
 using Domain.Entity;
 using Application.Dto;
 
-namespace Application.Abstraction.Service
+namespace Application.Service.Abstraction
 {
   public interface IUserService : IBaseService<User, UserCreateDto, UserReadDto, UserUpdateDto>
   {

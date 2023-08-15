@@ -2,7 +2,7 @@ namespace Domain.Entity
 {
   public class Timestamp : BaseEntity
   {
-    public DateOnly CreatedAt { get; set; }
-    public DateOnly? ModifiedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime? ModifiedAt { get; set; }
   }
 }

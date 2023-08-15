@@ -1,4 +1,4 @@
-using Application.Abstraction.Service;
+using Application.Service.Abstraction;
 using Application.Dto;
 using Domain.Entity;
 

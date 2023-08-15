@@ -24,10 +24,17 @@ namespace Infrastructure.Database
       _configuration = configuration;
     }
 
+    static DatabaseContext()
+    {
+      AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+      AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
       var builder = new NpgsqlDataSourceBuilder(_configuration.GetConnectionString("ECommerceDB"));
       optionsBuilder.UseNpgsql(builder.Build());
+      optionsBuilder.AddInterceptors(new TimeStampInterceptor());
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

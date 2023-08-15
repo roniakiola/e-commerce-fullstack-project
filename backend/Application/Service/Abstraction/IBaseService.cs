@@ -1,4 +1,4 @@
-namespace Application.Abstraction.Service
+namespace Application.Service.Abstraction
 {
   public interface IBaseService<T, TCreateDto, TReadDto, TUpdateDto> where T : class
   {

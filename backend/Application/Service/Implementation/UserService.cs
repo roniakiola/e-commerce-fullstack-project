@@ -1,10 +1,10 @@
 using Domain.Entity;
-using Application.Abstraction.Service;
+using Application.Service.Abstraction;
 using Domain.Abstraction.Repository;
 using AutoMapper;
 using Application.Dto;
 
-namespace Application.Service
+namespace Application.Service.Implementation
 {
   public class UserService : BaseService<User, UserReadDto, UserCreateDto, UserUpdateDto>, IUserService
   {

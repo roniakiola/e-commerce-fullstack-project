@@ -1,5 +1,5 @@
-using Application.Abstraction.Service;
-using Application.Service;
+using Application.Service.Abstraction;
+using Application.Service.Implementation;
 using Domain.Abstraction.Repository;
 using Infrastructure.Database;
 using Infrastructure.Repository;

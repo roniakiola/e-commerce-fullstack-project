@@ -27,7 +27,7 @@ namespace Infrastructure.Repository
 
     public async Task CreateAsync(T entity)
     {
-      _dbSet.Add(entity);
+      await _dbSet.AddAsync(entity);
       await _context.SaveChangesAsync();
     }
 
