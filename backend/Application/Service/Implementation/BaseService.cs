@@ -1,6 +1,7 @@
 using AutoMapper;
 using Domain.Abstraction.Repository;
 using Application.Service.Abstraction;
+using Domain.Shared;
 
 namespace Application.Service.Implementation
 {
@@ -20,9 +21,9 @@ namespace Application.Service.Implementation
       return _mapper.Map<TReadDto>(await _repository.GetByIdAsync(id));
     }
 
-    public async Task<List<TReadDto>> GetAllAsync()
+    public async Task<List<TReadDto>> GetAllAsync(QueryOptions queryOptions)
     {
-      return _mapper.Map<List<TReadDto>>(await _repository.GetAllAsync());
+      return _mapper.Map<List<TReadDto>>(await _repository.GetAllAsync(queryOptions));
     }
 
     public async Task<TReadDto> CreateAsync(TCreateDto entityDto)

@@ -1,4 +1,5 @@
 using Domain.Abstraction.Repository;
+using Domain.Shared;
 using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,8 +21,9 @@ namespace Infrastructure.Repository
       return await _dbSet.FindAsync(id);
     }
 
-    public async Task<List<T>> GetAllAsync()
+    public async Task<List<T>> GetAllAsync(QueryOptions queryOptions)
     {
+      //implement queries
       return await _dbSet.ToListAsync();
     }
 

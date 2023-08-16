@@ -1,4 +1,5 @@
 using Application.Service.Abstraction;
+using Domain.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controller
@@ -15,9 +16,9 @@ namespace Presentation.Controller
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<TReadDto>>> GetAllAsync()
+    public async Task<ActionResult<List<TReadDto>>> GetAllAsync(QueryOptions queryOptions)
     {
-      var list = await _baseService.GetAllAsync();
+      var list = await _baseService.GetAllAsync(queryOptions);
 
       if (list == null)
       {
