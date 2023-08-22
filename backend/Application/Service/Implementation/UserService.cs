@@ -15,20 +15,24 @@ namespace Application.Service.Implementation
       _userRepository = userRepository;
     }
 
-    public async Task<User> AddUserDetailsAsync(Guid id, UserContactDetails contactDetails)
+    public async Task<UserWithDetailsReadDto> AddUserDetailsAsync(Guid id, UserContactDetailsDto contactDetailsDto)
     {
-      var user = await _userRepository.AddUserDetailsAsync(id, contactDetails);
-      return user;
+      var contactDetails = _mapper.Map<UserContactDetails>(contactDetailsDto);
+      var userWithDetails = await _userRepository.AddUserDetailsAsync(id, contactDetails);
+
+      return _mapper.Map<UserWithDetailsReadDto>(userWithDetails);
     }
 
-    public async Task<User> GetUserDetailsAsync(Guid id)
+    public async Task<UserWithDetailsReadDto> GetUserDetailsAsync(Guid id)
     {
-      return await _userRepository.GetUserDetailsAsync(id);
+      return _mapper.Map<UserWithDetailsReadDto>(await _userRepository.GetUserDetailsAsync(id));
     }
 
-    public async Task<User> UpdateUserDetailsAsync(Guid id, UserContactDetails contactDetails)
+    public async Task<UserWithDetailsReadDto> UpdateUserDetailsAsync(Guid id, UserContactDetailsUpdateDto contactDetailsUpdateDto)
     {
-      throw new NotImplementedException();
+      var contactDetails = _mapper.Map<UserContactDetails>(contactDetailsUpdateDto);
+
+      return _mapper.Map<UserWithDetailsReadDto>(await _userRepository.UpdateUserDetailsAsync(id, contactDetails));
     }
   }
 }

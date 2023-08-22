@@ -16,9 +16,9 @@ namespace Presentation.Controller
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<TReadDto>>> GetAllAsync(QueryOptions queryOptions)
+    public async Task<ActionResult<List<TReadDto>>> GetAllAsync()
     {
-      var list = await _baseService.GetAllAsync(queryOptions);
+      var list = await _baseService.GetAllAsync();
 
       if (list == null)
       {

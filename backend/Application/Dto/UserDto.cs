@@ -25,4 +25,28 @@ namespace Application.Dto
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
   }
+
+  public class UserContactDetailsDto
+  {
+    public string Address { get; set; }
+    public string City { get; set; }
+    public string PostalCode { get; set; }
+    public string Country { get; set; }
+    public string PhoneNumber { get; set; }
+  }
+
+  public class UserContactDetailsUpdateDto
+  {
+    public string? Address { get; set; }
+    public string? City { get; set; }
+    public string? PostalCode { get; set; }
+    public string? Country { get; set; }
+    public string? PhoneNumber { get; set; }
+  }
+
+  public class UserWithDetailsReadDto
+  {
+    public UserReadDto User { get; set; }
+    public UserContactDetailsDto UserContactDetails { get; set; }
+  }
 }

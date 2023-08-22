@@ -21,7 +21,7 @@ namespace Infrastructure.Repository
       return await _dbSet.FindAsync(id);
     }
 
-    public async Task<List<T>> GetAllAsync(QueryOptions queryOptions)
+    public async Task<List<T>> GetAllAsync()
     {
       //implement queries
       return await _dbSet.ToListAsync();

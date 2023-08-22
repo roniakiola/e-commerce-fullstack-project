@@ -28,7 +28,13 @@ namespace Infrastructure.Repository
 
     public async Task<User> UpdateUserDetailsAsync(Guid id, UserContactDetails contactDetails)
     {
-      throw new NotImplementedException();
+      var user = await GetByIdAsync(id);
+      if (user != null)
+      {
+        user.UserContactDetails = contactDetails;
+        await UpdateAsync(user);
+      }
+      return user;
     }
 
   }
