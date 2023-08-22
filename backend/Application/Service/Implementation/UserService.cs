@@ -19,12 +19,10 @@ namespace Application.Service.Implementation
     {
       var contactDetails = _mapper.Map<UserContactDetails>(contactDetailsDto);
       var user = await _userRepository.GetUserDetailsAsync(id);
-
       if (user == null)
       {
         throw new Exception("User not found");
       }
-
       user.UserContactDetails = contactDetails;
       await _userRepository.UpdateAsync(user);
 
@@ -47,6 +45,18 @@ namespace Application.Service.Implementation
       var updatedUser = await _userRepository.UpdateAsync(user);
 
       return _mapper.Map<UserWithDetailsReadDto>(updatedUser);
+    }
+
+    public async Task<bool> RemoveUserDetailsAsync(Guid id)
+    {
+      var user = await _userRepository.GetUserDetailsAsync(id);
+      if (user == null)
+      {
+        throw new Exception("User not found");
+      }
+      user.UserContactDetails = null;
+      await _userRepository.UpdateAsync(user);
+      return true;
     }
   }
 }

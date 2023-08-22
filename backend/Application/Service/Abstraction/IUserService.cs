@@ -8,5 +8,6 @@ namespace Application.Service.Abstraction
     Task<UserWithDetailsReadDto> GetUserDetailsAsync(Guid id);
     Task<UserWithDetailsReadDto> AddUserDetailsAsync(Guid id, UserContactDetailsDto contactDetails);
     Task<UserWithDetailsReadDto> UpdateUserDetailsAsync(Guid id, UserContactDetailsUpdateDto contactDetails);
+    Task<bool> RemoveUserDetailsAsync(Guid id);
   }
 }

@@ -28,8 +28,13 @@ namespace Presentation.Controller
     [HttpPatch("{id}/details")]
     public async Task<ActionResult<UserWithDetailsReadDto>> UpdateUserDetailsAsync(Guid id, UserContactDetailsUpdateDto contactDetails)
     {
-      Console.WriteLine($"Controller: {id}");
       return await _userService.UpdateUserDetailsAsync(id, contactDetails);
+    }
+
+    [HttpDelete("{id}/details")]
+    public async Task<ActionResult<bool>> RemoveUserDetailsAsync(Guid id)
+    {
+      return await _userService.RemoveUserDetailsAsync(id);
     }
   }
 }
