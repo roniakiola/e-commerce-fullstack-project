@@ -18,9 +18,17 @@ namespace Application.Service.Implementation
     public async Task<UserWithDetailsReadDto> AddUserDetailsAsync(Guid id, UserContactDetailsDto contactDetailsDto)
     {
       var contactDetails = _mapper.Map<UserContactDetails>(contactDetailsDto);
-      var userWithDetails = await _userRepository.AddUserDetailsAsync(id, contactDetails);
+      var user = await _userRepository.GetUserDetailsAsync(id);
 
-      return _mapper.Map<UserWithDetailsReadDto>(userWithDetails);
+      if (user == null)
+      {
+        throw new Exception("User not found");
+      }
+
+      user.UserContactDetails = contactDetails;
+      await _userRepository.UpdateAsync(user);
+
+      return _mapper.Map<UserWithDetailsReadDto>(user);
     }
 
     public async Task<UserWithDetailsReadDto> GetUserDetailsAsync(Guid id)
@@ -30,9 +38,15 @@ namespace Application.Service.Implementation
 
     public async Task<UserWithDetailsReadDto> UpdateUserDetailsAsync(Guid id, UserContactDetailsUpdateDto contactDetailsUpdateDto)
     {
-      var contactDetails = _mapper.Map<UserContactDetails>(contactDetailsUpdateDto);
+      var user = await _userRepository.GetUserDetailsAsync(id);
+      if (user == null)
+      {
+        throw new Exception("User not found");
+      }
+      _mapper.Map(contactDetailsUpdateDto, user.UserContactDetails);
+      var updatedUser = await _userRepository.UpdateAsync(user);
 
-      return _mapper.Map<UserWithDetailsReadDto>(await _userRepository.UpdateUserDetailsAsync(id, contactDetails));
+      return _mapper.Map<UserWithDetailsReadDto>(updatedUser);
     }
   }
 }

@@ -15,27 +15,5 @@ namespace Infrastructure.Repository
         .FirstOrDefaultAsync(u => u.Id == id);
     }
 
-    public async Task<User> AddUserDetailsAsync(Guid id, UserContactDetails contactDetails)
-    {
-      var user = await GetByIdAsync(id);
-      if (user != null)
-      {
-        user.UserContactDetails = contactDetails;
-        await _context.SaveChangesAsync();
-      }
-      return user;
-    }
-
-    public async Task<User> UpdateUserDetailsAsync(Guid id, UserContactDetails contactDetails)
-    {
-      var user = await GetByIdAsync(id);
-      if (user != null)
-      {
-        user.UserContactDetails = contactDetails;
-        await UpdateAsync(user);
-      }
-      return user;
-    }
-
   }
 }
