@@ -1,5 +1,6 @@
 using Application.Service.Abstraction;
 using Domain.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controller
@@ -16,6 +17,7 @@ namespace Presentation.Controller
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<List<TReadDto>>> GetAllAsync()
     {
       var list = await _baseService.GetAllAsync();
@@ -40,6 +42,7 @@ namespace Presentation.Controller
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<ActionResult<TReadDto>> CreateAsync([FromBody] TCreateDto entityDto)
     {
       var entity = await _baseService.CreateAsync(entityDto);

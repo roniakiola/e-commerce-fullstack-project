@@ -9,6 +9,11 @@ namespace Infrastructure.Repository
   {
     public UserRepository(DatabaseContext dbContext) : base(dbContext) { }
 
+    public async Task<User?> GetByUsernameAsync(string username)
+    {
+      return await _dbSet.FirstOrDefaultAsync(x => x.Username == username);
+    }
+
     public async Task<User> GetUserDetailsAsync(Guid id)
     {
       return await _dbSet.Include(u => u.UserContactDetails)

@@ -63,6 +63,10 @@ namespace Infrastructure.Database
         .HasIndex(u => u.Email)
         .IsUnique();
 
+      modelBuilder.Entity<User>()
+        .HasIndex(u => u.Username)
+        .IsUnique();
+
       modelBuilder.Entity<Product>()
         .HasMany(p => p.CartItems)
         .WithOne(ci => ci.Product)

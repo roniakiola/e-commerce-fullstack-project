@@ -26,7 +26,7 @@ namespace Application.Service.Implementation
       return _mapper.Map<List<TReadDto>>(await _repository.GetAllAsync());
     }
 
-    public async Task<TReadDto> CreateAsync(TCreateDto entityDto)
+    public async virtual Task<TReadDto> CreateAsync(TCreateDto entityDto)
     {
       var entity = _mapper.Map<T>(entityDto);
       return _mapper.Map<TReadDto>(await _repository.CreateAsync(entity));

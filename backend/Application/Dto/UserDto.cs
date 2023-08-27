@@ -26,6 +26,12 @@ namespace Application.Dto
     public string? LastName { get; set; }
   }
 
+  public class UserCredentials
+  {
+    public string Username { get; set; }
+    public string Password { get; set; }
+  }
+
   public class UserContactDetailsDto
   {
     public string Address { get; set; }

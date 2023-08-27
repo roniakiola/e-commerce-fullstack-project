@@ -2,9 +2,11 @@ using Application.Service.Abstraction;
 using Application.Dto;
 using Domain.Entity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Presentation.Controller
 {
+  [Authorize]
   public class UserController : CrudController<User, UserCreateDto, UserReadDto, UserUpdateDto>
   {
     private readonly IUserService _userService;

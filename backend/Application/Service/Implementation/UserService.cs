@@ -3,6 +3,7 @@ using Application.Service.Abstraction;
 using Domain.Abstraction.Repository;
 using AutoMapper;
 using Application.Dto;
+using Application.Service.Implementation.Shared;
 
 namespace Application.Service.Implementation
 {
@@ -57,6 +58,16 @@ namespace Application.Service.Implementation
       user.UserContactDetails = null;
       await _userRepository.UpdateAsync(user);
       return true;
+    }
+
+    public async override Task<UserReadDto> CreateAsync(UserCreateDto userCreateDto)
+    {
+      var entity = _mapper.Map<User>(userCreateDto);
+      PasswordService.HashPassword(userCreateDto.Password, out var hashedPassword, out var salt);
+      entity.Password = hashedPassword;
+      entity.Salt = salt;
+      var createdUser = await _userRepository.CreateAsync(entity);
+      return _mapper.Map<UserReadDto>(createdUser);
     }
   }
 }
