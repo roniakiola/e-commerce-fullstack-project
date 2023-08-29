@@ -6,8 +6,10 @@ using Domain.Abstraction.Repository;
 using Infrastructure.Database;
 using Infrastructure.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Presentation.AuthRequirement;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,9 +21,7 @@ builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-
-// Authentication
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
+builder.Services.AddSingleton<IAuthorizationHandler, UserOnlyAuthorizationHandler>();
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -44,6 +44,11 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 // Configure routes
 builder.Services.Configure<RouteOptions>(o => { o.LowercaseUrls = true; });
+
+builder.Services.AddAuthorization(o =>
+{
+  o.AddPolicy("UserOnly", policy => policy.Requirements.Add(new UserOnlyRequirement()));
+});
 
 // Configure authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

@@ -69,5 +69,16 @@ namespace Application.Service.Implementation
       var createdUser = await _userRepository.CreateAsync(entity);
       return _mapper.Map<UserReadDto>(createdUser);
     }
+
+    public async Task<UserReadDto> CreateAdminAsync(UserCreateDto userCreateDto)
+    {
+      var entity = _mapper.Map<User>(userCreateDto);
+      PasswordService.HashPassword(userCreateDto.Password, out var hashedPassword, out var salt);
+      entity.Password = hashedPassword;
+      entity.Salt = salt;
+      entity.Role = User.UserRole.Admin;
+      var createdUser = await _userRepository.CreateAsync(entity);
+      return _mapper.Map<UserReadDto>(createdUser);
+    }
   }
 }

@@ -17,8 +17,7 @@ namespace Presentation.Controller
     }
 
     [HttpGet]
-    [AllowAnonymous]
-    public async Task<ActionResult<List<TReadDto>>> GetAllAsync()
+    public async virtual Task<ActionResult<List<TReadDto>>> GetAllAsync()
     {
       var list = await _baseService.GetAllAsync();
 
@@ -30,7 +29,7 @@ namespace Presentation.Controller
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<TReadDto>> GetByIdAsync([FromRoute] Guid id)
+    public async virtual Task<ActionResult<TReadDto>> GetByIdAsync([FromRoute] Guid id)
     {
       var entity = await _baseService.GetByIdAsync(id);
 

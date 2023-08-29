@@ -9,13 +9,13 @@ namespace Application.Service.Implementation.Shared
     {
       var hmac = new HMACSHA256();
       salt = hmac.Key;
-      hashedPassword = hmac.ComputeHash(Encoding.UTF8.GetBytes(originalPassword)).ToString();
+      hashedPassword = Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(originalPassword)));
     }
 
     public static bool VerifyPassword(string originalPassword, string hashedPassword, byte[] salt)
     {
       var hmac = new HMACSHA256(salt);
-      var hashedOriginal = hmac.ComputeHash(Encoding.UTF8.GetBytes(originalPassword)).ToString();
+      var hashedOriginal = Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(originalPassword)));
       return hashedOriginal == hashedPassword;
     }
   }
