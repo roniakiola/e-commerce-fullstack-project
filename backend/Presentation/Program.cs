@@ -21,7 +21,8 @@ builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddSingleton<IAuthorizationHandler, UserOnlyAuthorizationHandler>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<IAuthorizationHandler, OwnerOrAdminAuthHandler>();
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -47,7 +48,7 @@ builder.Services.Configure<RouteOptions>(o => { o.LowercaseUrls = true; });
 
 builder.Services.AddAuthorization(o =>
 {
-  o.AddPolicy("UserOnly", policy => policy.Requirements.Add(new UserOnlyRequirement()));
+  o.AddPolicy("UserOnly", policy => policy.Requirements.Add(new OwnerOrAdminReq()));
 });
 
 // Configure authentication

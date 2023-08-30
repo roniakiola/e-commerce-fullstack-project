@@ -56,7 +56,7 @@ namespace Presentation.Controller
     }
 
     [HttpGet("{id}")]
-    [Authorize]
+    [Authorize(Policy = "UserOnly")]
     public async override Task<ActionResult<UserReadDto>> GetByIdAsync([FromRoute] Guid id)
     {
       var entity = await _userService.GetByIdAsync(id);
@@ -65,16 +65,7 @@ namespace Presentation.Controller
       {
         return NotFound();
       }
-
-      var authorizedUser = await _authorizationService.AuthorizeAsync(HttpContext.User, entity, "UserOnly");
-      if (authorizedUser.Succeeded)
-      {
-        return Ok(entity);
-      }
-      else
-      {
-        return new ForbidResult();
-      }
+      return Ok(entity);
     }
   }
 }
