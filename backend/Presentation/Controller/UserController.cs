@@ -6,16 +6,14 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Presentation.Controller
 {
-  [Authorize]
+  [Authorize(Policy = "OwnerOrAdmin")]
   public class UserController : CrudController<User, UserCreateDto, UserReadDto, UserUpdateDto>
   {
     private readonly IUserService _userService;
-    private readonly IAuthorizationService _authorizationService;
 
-    public UserController(IUserService userService, IAuthorizationService authorizationSerivce) : base(userService)
+    public UserController(IUserService userService) : base(userService)
     {
       _userService = userService;
-      _authorizationService = authorizationSerivce;
     }
 
     [HttpPost("{id}/details")]
@@ -42,10 +40,18 @@ namespace Presentation.Controller
       return await _userService.RemoveUserDetailsAsync(id);
     }
 
-    [HttpPost("/admin")]
+    [HttpPost("admin")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<UserReadDto>> CreateAdminAsync(UserCreateDto userCreateDto)
     {
       return await _userService.CreateAdminAsync(userCreateDto);
+    }
+
+    [HttpPost]
+    [AllowAnonymous]
+    public async override Task<ActionResult<UserReadDto>> CreateAsync(UserCreateDto userCreateDto)
+    {
+      return await _userService.CreateAsync(userCreateDto);
     }
 
     [HttpGet]
@@ -53,19 +59,6 @@ namespace Presentation.Controller
     public async override Task<ActionResult<List<UserReadDto>>> GetAllAsync()
     {
       return await _userService.GetAllAsync();
-    }
-
-    [HttpGet("{id}")]
-    [Authorize(Policy = "UserOnly")]
-    public async override Task<ActionResult<UserReadDto>> GetByIdAsync([FromRoute] Guid id)
-    {
-      var entity = await _userService.GetByIdAsync(id);
-
-      if (entity == null)
-      {
-        return NotFound();
-      }
-      return Ok(entity);
     }
   }
 }

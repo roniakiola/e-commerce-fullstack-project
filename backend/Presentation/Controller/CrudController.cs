@@ -1,6 +1,4 @@
 using Application.Service.Abstraction;
-using Domain.Shared;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controller
@@ -41,8 +39,7 @@ namespace Presentation.Controller
     }
 
     [HttpPost]
-    [AllowAnonymous]
-    public async Task<ActionResult<TReadDto>> CreateAsync([FromBody] TCreateDto entityDto)
+    public async virtual Task<ActionResult<TReadDto>> CreateAsync([FromBody] TCreateDto entityDto)
     {
       var entity = await _baseService.CreateAsync(entityDto);
       return Ok(entity);

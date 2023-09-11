@@ -24,6 +24,7 @@ namespace Application.Dto
     public string? Email { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
+    public byte[]? Salt { get; set; }
   }
 
   public class UserCredentials

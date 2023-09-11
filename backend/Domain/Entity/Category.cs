@@ -1,6 +1,6 @@
 namespace Domain.Entity
 {
-  public class Category : BaseEntity
+  public class Category : Timestamp
   {
     public string Name { get; set; }
 

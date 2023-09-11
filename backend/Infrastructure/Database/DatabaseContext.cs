@@ -79,11 +79,19 @@ namespace Infrastructure.Database
         .HasForeignKey(oi => oi.ProductId)
         .OnDelete(DeleteBehavior.Cascade);
 
+      modelBuilder.Entity<Product>()
+        .HasIndex(p => p.Name)
+        .IsUnique();
+
       modelBuilder.Entity<Category>()
         .HasMany(c => c.Products)
         .WithOne(p => p.Category)
         .HasForeignKey(p => p.CategoryId)
         .OnDelete(DeleteBehavior.Cascade);
+
+      modelBuilder.Entity<Category>()
+        .HasIndex(c => c.Name)
+        .IsUnique();
 
       modelBuilder.Entity<Cart>()
         .HasMany(c => c.CartItems)

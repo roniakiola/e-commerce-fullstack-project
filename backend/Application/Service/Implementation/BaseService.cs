@@ -32,7 +32,7 @@ namespace Application.Service.Implementation
       return _mapper.Map<TReadDto>(await _repository.CreateAsync(entity));
     }
 
-    public async Task<TReadDto> UpdateAsync(Guid id, TUpdateDto entityDto)
+    public async virtual Task<TReadDto> UpdateAsync(Guid id, TUpdateDto entityDto)
     {
       var entity = await _repository.GetByIdAsync(id);
       if (entity == null)

@@ -70,6 +70,19 @@ namespace Application.Service.Implementation
       return _mapper.Map<UserReadDto>(createdUser);
     }
 
+    public async override Task<UserReadDto> UpdateAsync(Guid id, UserUpdateDto userUpdateDto)
+    {
+      var foundUser = await _userRepository.GetByIdAsync(id);
+      if (userUpdateDto.Password != null)
+      {
+        PasswordService.HashPassword(userUpdateDto.Password, out var hashedPassword, out var salt);
+        userUpdateDto.Password = hashedPassword;
+        userUpdateDto.Salt = salt;
+      }
+      _mapper.Map(userUpdateDto, foundUser);
+      return _mapper.Map<UserReadDto>(await _userRepository.UpdateAsync(foundUser));
+    }
+
     public async Task<UserReadDto> CreateAdminAsync(UserCreateDto userCreateDto)
     {
       var entity = _mapper.Map<User>(userCreateDto);

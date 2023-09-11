@@ -21,6 +21,13 @@ namespace Presentation.Configuration
 
       CreateMap<UserContactDetailsUpdateDto, UserContactDetails>()
         .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+      CreateMap<Product, ProductReadDto>();
+      CreateMap<ProductCreateDto, Product>();
+      CreateMap<ProductUpdateDto, Product>();
+
+      CreateMap<Category, CategoryDto>();
+      CreateMap<CategoryDto, Category>();
     }
   }
 }

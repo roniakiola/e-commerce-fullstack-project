@@ -1,6 +1,6 @@
 namespace Domain.Entity
 {
-  public class UserContactDetails : BaseEntity
+  public class UserContactDetails : Timestamp
   {
     public Guid UserId { get; set; }
     public string Address { get; set; }

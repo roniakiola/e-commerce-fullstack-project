@@ -19,8 +19,12 @@ builder.Services.AddDbContext<DatabaseContext>();
 
 // Services
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton<IAuthorizationHandler, OwnerOrAdminAuthHandler>();
 
@@ -35,7 +39,9 @@ builder.Services.AddSwaggerGen(o =>
   {
     Description = "Bearer token authentication",
     Name = "Authentication",
-    In = ParameterLocation.Header
+    In = ParameterLocation.Header,
+    Type = SecuritySchemeType.Http,
+    Scheme = "bearer"
   });
   o.OperationFilter<SecurityRequirementsOperationFilter>();
 });
@@ -48,7 +54,7 @@ builder.Services.Configure<RouteOptions>(o => { o.LowercaseUrls = true; });
 
 builder.Services.AddAuthorization(o =>
 {
-  o.AddPolicy("UserOnly", policy => policy.Requirements.Add(new OwnerOrAdminReq()));
+  o.AddPolicy("OwnerOrAdmin", policy => policy.Requirements.Add(new OwnerOrAdminReq()));
 });
 
 // Configure authentication
@@ -64,8 +70,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
       ValidateAudience = false,
       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig["SecretKey"])),
       ValidateIssuerSigningKey = true
-
-
     };
   });
 
