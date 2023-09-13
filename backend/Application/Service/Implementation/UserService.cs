@@ -7,7 +7,7 @@ using Application.Service.Implementation.Shared;
 
 namespace Application.Service.Implementation
 {
-  public class UserService : BaseService<User, UserReadDto, UserCreateDto, UserUpdateDto>, IUserService
+  public class UserService : BaseService<User, UserCreateDto, UserReadDto, UserUpdateDto>, IUserService
   {
     private readonly IUserRepository _userRepository;
 

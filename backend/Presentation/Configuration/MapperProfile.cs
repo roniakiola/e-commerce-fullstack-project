@@ -26,8 +26,9 @@ namespace Presentation.Configuration
       CreateMap<ProductCreateDto, Product>();
       CreateMap<ProductUpdateDto, Product>();
 
-      CreateMap<Category, CategoryDto>();
-      CreateMap<CategoryDto, Category>();
+      CreateMap<Category, CategoryReadDto>();
+      CreateMap<CategoryCreateDto, Category>();
+      CreateMap<CategoryUpdateDto, Category>();
     }
   }
 }

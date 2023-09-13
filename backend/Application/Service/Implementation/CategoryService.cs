@@ -6,7 +6,7 @@ using Domain.Entity;
 
 namespace Application.Service.Implementation
 {
-  public class CategoryService : BaseService<Category, CategoryDto, CategoryDto, CategoryDto>, ICategoryService
+  public class CategoryService : BaseService<Category, CategoryCreateDto, CategoryReadDto, CategoryUpdateDto>, ICategoryService
   {
     private readonly ICategoryRepository _categoryRepository;
 

@@ -8,7 +8,7 @@ namespace Presentation.Controller
 {
   [Authorize(Roles = "Admin")]
   [Route("api/categories")]
-  public class CategoryController : CrudController<Category, CategoryDto, CategoryDto, CategoryDto>
+  public class CategoryController : CrudController<Category, CategoryCreateDto, CategoryReadDto, CategoryUpdateDto>
   {
     private readonly ICategoryService _categoryService;
 

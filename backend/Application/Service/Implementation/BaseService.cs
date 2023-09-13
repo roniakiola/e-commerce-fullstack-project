@@ -5,7 +5,7 @@ using Domain.Shared;
 
 namespace Application.Service.Implementation
 {
-  public class BaseService<T, TReadDto, TCreateDto, TUpdateDto> : IBaseService<T, TCreateDto, TReadDto, TUpdateDto> where T : class
+  public class BaseService<T, TCreateDto, TReadDto, TUpdateDto> : IBaseService<T, TCreateDto, TReadDto, TUpdateDto> where T : class
   {
     protected readonly IBaseRepository<T> _repository;
     protected readonly IMapper _mapper;

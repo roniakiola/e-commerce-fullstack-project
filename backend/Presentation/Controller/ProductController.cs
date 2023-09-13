@@ -1,6 +1,7 @@
 using Application.Dto;
 using Application.Service.Abstraction;
 using Domain.Entity;
+using Domain.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +35,13 @@ namespace Presentation.Controller
         return NotFound();
       }
       return Ok(product);
+    }
+
+    [HttpGet("query")]
+    [AllowAnonymous]
+    public async Task<ActionResult<List<ProductReadDto>>> GetByQueryAsync([FromQuery] QueryOptions queryOptions)
+    {
+      return await _productService.GetByQueryAsync(queryOptions);
     }
   }
 }
